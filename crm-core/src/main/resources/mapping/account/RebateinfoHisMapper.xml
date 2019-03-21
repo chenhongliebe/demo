@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frico.crmcore.mapper.RebateinfoHisMapperExt">
+  <resultMap id="BaseResultMap" type="com.frico.crmcore.model.RebateinfoHis">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="exrebate" jdbcType="REAL" property="exrebate" />
+    <result column="from_time" jdbcType="BIGINT" property="fromTime" />
+    <result column="isunder" jdbcType="INTEGER" property="isunder" />
+    <result column="lots" jdbcType="INTEGER" property="lots" />
+    <result column="rebate" jdbcType="REAL" property="rebate" />
+    <result column="symrebates" jdbcType="VARCHAR" property="symrebates" />
+    <result column="to_time" jdbcType="BIGINT" property="toTime" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="account_no" jdbcType="INTEGER" property="accountNo" />
+    <result column="proxy_id" jdbcType="INTEGER" property="proxyId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, exrebate, from_time, isunder, lots, rebate, symrebates, to_time, type, account_no, 
+    proxy_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from frico_crm_rebateinfo_his
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from frico_crm_rebateinfo_his
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.frico.crmcore.model.RebateinfoHis">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into frico_crm_rebateinfo_his (exrebate, from_time, isunder, 
+      lots, rebate, symrebates, 
+      to_time, type, account_no, 
+      proxy_id)
+    values (#{exrebate,jdbcType=REAL}, #{fromTime,jdbcType=BIGINT}, #{isunder,jdbcType=INTEGER}, 
+      #{lots,jdbcType=INTEGER}, #{rebate,jdbcType=REAL}, #{symrebates,jdbcType=VARCHAR}, 
+      #{toTime,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{accountNo,jdbcType=INTEGER}, 
+      #{proxyId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.frico.crmcore.model.RebateinfoHis">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into frico_crm_rebateinfo_his
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="exrebate != null">
+        exrebate,
+      </if>
+      <if test="fromTime != null">
+        from_time,
+      </if>
+      <if test="isunder != null">
+        isunder,
+      </if>
+      <if test="lots != null">
+        lots,
+      </if>
+      <if test="rebate != null">
+        rebate,
+      </if>
+      <if test="symrebates != null">
+        symrebates,
+      </if>
+      <if test="toTime != null">
+        to_time,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="accountNo != null">
+        account_no,
+      </if>
+      <if test="proxyId != null">
+        proxy_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="exrebate != null">
+        #{exrebate,jdbcType=REAL},
+      </if>
+      <if test="fromTime != null">
+        #{fromTime,jdbcType=BIGINT},
+      </if>
+      <if test="isunder != null">
+        #{isunder,jdbcType=INTEGER},
+      </if>
+      <if test="lots != null">
+        #{lots,jdbcType=INTEGER},
+      </if>
+      <if test="rebate != null">
+        #{rebate,jdbcType=REAL},
+      </if>
+      <if test="symrebates != null">
+        #{symrebates,jdbcType=VARCHAR},
+      </if>
+      <if test="toTime != null">
+        #{toTime,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="accountNo != null">
+        #{accountNo,jdbcType=INTEGER},
+      </if>
+      <if test="proxyId != null">
+        #{proxyId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.frico.crmcore.model.RebateinfoHis">
+    update frico_crm_rebateinfo_his
+    <set>
+      <if test="exrebate != null">
+        exrebate = #{exrebate,jdbcType=REAL},
+      </if>
+      <if test="fromTime != null">
+        from_time = #{fromTime,jdbcType=BIGINT},
+      </if>
+      <if test="isunder != null">
+        isunder = #{isunder,jdbcType=INTEGER},
+      </if>
+      <if test="lots != null">
+        lots = #{lots,jdbcType=INTEGER},
+      </if>
+      <if test="rebate != null">
+        rebate = #{rebate,jdbcType=REAL},
+      </if>
+      <if test="symrebates != null">
+        symrebates = #{symrebates,jdbcType=VARCHAR},
+      </if>
+      <if test="toTime != null">
+        to_time = #{toTime,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="accountNo != null">
+        account_no = #{accountNo,jdbcType=INTEGER},
+      </if>
+      <if test="proxyId != null">
+        proxy_id = #{proxyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.frico.crmcore.model.RebateinfoHis">
+    update frico_crm_rebateinfo_his
+    set exrebate = #{exrebate,jdbcType=REAL},
+      from_time = #{fromTime,jdbcType=BIGINT},
+      isunder = #{isunder,jdbcType=INTEGER},
+      lots = #{lots,jdbcType=INTEGER},
+      rebate = #{rebate,jdbcType=REAL},
+      symrebates = #{symrebates,jdbcType=VARCHAR},
+      to_time = #{toTime,jdbcType=BIGINT},
+      type = #{type,jdbcType=INTEGER},
+      account_no = #{accountNo,jdbcType=INTEGER},
+      proxy_id = #{proxyId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

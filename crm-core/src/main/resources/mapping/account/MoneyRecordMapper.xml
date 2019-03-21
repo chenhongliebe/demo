@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frico.crmcore.mapper.MoneyRecordMapperExt">
+  <resultMap id="BaseResultMap" type="com.frico.crmcore.model.MoneyRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="balance" jdbcType="DECIMAL" property="balance" />
+    <result column="rate" jdbcType="DECIMAL" property="rate" />
+    <result column="rmb" jdbcType="DECIMAL" property="rmb" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="way" jdbcType="CHAR" property="way" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="check_time" jdbcType="TIMESTAMP" property="checkTime" />
+    <result column="into_account" jdbcType="VARCHAR" property="intoAccount" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="sys_feedback" jdbcType="VARCHAR" property="sysFeedback" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="bc_id" jdbcType="INTEGER" property="bcId" />
+    <result column="paid_time" jdbcType="TIMESTAMP" property="paidTime" />
+    <result column="check_id" jdbcType="INTEGER" property="checkId" />
+    <result column="tradeOrder" jdbcType="VARCHAR" property="tradeorder" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_no, account, balance, rate, rmb, status, way, type, check_time, into_account, 
+    remarks, sys_feedback, create_time, bc_id, paid_time, check_id, tradeOrder
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from frico_crm_money_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from frico_crm_money_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.frico.crmcore.model.MoneyRecord">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into frico_crm_money_record (order_no, account, balance, 
+      rate, rmb, status, way, 
+      type, check_time, into_account, 
+      remarks, sys_feedback, create_time, 
+      bc_id, paid_time, check_id, 
+      tradeOrder)
+    values (#{orderNo,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{balance,jdbcType=DECIMAL}, 
+      #{rate,jdbcType=DECIMAL}, #{rmb,jdbcType=DECIMAL}, #{status,jdbcType=CHAR}, #{way,jdbcType=CHAR}, 
+      #{type,jdbcType=CHAR}, #{checkTime,jdbcType=TIMESTAMP}, #{intoAccount,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{sysFeedback,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{bcId,jdbcType=INTEGER}, #{paidTime,jdbcType=TIMESTAMP}, #{checkId,jdbcType=INTEGER}, 
+      #{tradeorder,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.frico.crmcore.model.MoneyRecord">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into frico_crm_money_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="balance != null">
+        balance,
+      </if>
+      <if test="rate != null">
+        rate,
+      </if>
+      <if test="rmb != null">
+        rmb,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="way != null">
+        way,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="checkTime != null">
+        check_time,
+      </if>
+      <if test="intoAccount != null">
+        into_account,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="sysFeedback != null">
+        sys_feedback,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="bcId != null">
+        bc_id,
+      </if>
+      <if test="paidTime != null">
+        paid_time,
+      </if>
+      <if test="checkId != null">
+        check_id,
+      </if>
+      <if test="tradeorder != null">
+        tradeOrder,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="rate != null">
+        #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="rmb != null">
+        #{rmb,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="way != null">
+        #{way,jdbcType=CHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="checkTime != null">
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="intoAccount != null">
+        #{intoAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="sysFeedback != null">
+        #{sysFeedback,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bcId != null">
+        #{bcId,jdbcType=INTEGER},
+      </if>
+      <if test="paidTime != null">
+        #{paidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkId != null">
+        #{checkId,jdbcType=INTEGER},
+      </if>
+      <if test="tradeorder != null">
+        #{tradeorder,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.frico.crmcore.model.MoneyRecord">
+    update frico_crm_money_record
+    <set>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="rate != null">
+        rate = #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="rmb != null">
+        rmb = #{rmb,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="way != null">
+        way = #{way,jdbcType=CHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="checkTime != null">
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="intoAccount != null">
+        into_account = #{intoAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="sysFeedback != null">
+        sys_feedback = #{sysFeedback,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bcId != null">
+        bc_id = #{bcId,jdbcType=INTEGER},
+      </if>
+      <if test="paidTime != null">
+        paid_time = #{paidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkId != null">
+        check_id = #{checkId,jdbcType=INTEGER},
+      </if>
+      <if test="tradeorder != null">
+        tradeOrder = #{tradeorder,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.frico.crmcore.model.MoneyRecord">
+    update frico_crm_money_record
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=DECIMAL},
+      rate = #{rate,jdbcType=DECIMAL},
+      rmb = #{rmb,jdbcType=DECIMAL},
+      status = #{status,jdbcType=CHAR},
+      way = #{way,jdbcType=CHAR},
+      type = #{type,jdbcType=CHAR},
+      check_time = #{checkTime,jdbcType=TIMESTAMP},
+      into_account = #{intoAccount,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      sys_feedback = #{sysFeedback,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      bc_id = #{bcId,jdbcType=INTEGER},
+      paid_time = #{paidTime,jdbcType=TIMESTAMP},
+      check_id = #{checkId,jdbcType=INTEGER},
+      tradeOrder = #{tradeorder,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frico.crmcore.mapper.AccountInfoMapperExt">
+  <!-- 扩展自动生成或自定义的SQl语句写在此文件中 -->
+    <select id="getAccountInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+      select
+      a.id "id",a.realName realName,a.phoneMT phonemt,a.emailMT emailmt,
+      b.id "account.id",b.balance "account.balance",b.credits "account.credits",b.nickname "account.nickname",
+      b.account_no "account.accountNo",b.create_time "account.createTime",b.leverage "account.leverage"
+      FROM frico_crm_account_info a
+      LEFT JOIN  frico_crm_account b ON a.id=b.account_info_id
+      WHERE a.id = (
+      select
+      b.id
+      FROM frico_crm_account a
+      LEFT JOIN frico_crm_account_info b ON b.id=a.account_info_id
+      WHERE a.id =#{id}
+      )
+    </select>
+</mapper>

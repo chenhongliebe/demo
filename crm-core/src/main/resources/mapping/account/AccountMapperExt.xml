@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frico.crmcore.mapper.AccountMapperExt">
+  <!-- 扩展自动生成或自定义的SQl语句写在此文件中 -->
+  <select id="getAccount" parameterType="string" resultMap="BaseResultMap">
+    select
+    a.id,a.account_no, a.balance, a.credits, a.agent_type,
+    a.agent_name,create_time,
+    b.id "info.id",b.idnumberMT "info.idnumbermt",b.bankNumberMT "info.banknumbermt",
+    b.bankNameMT "info.banknamemt",b.bankbranchmt "info.bankbranchmt",b.bankopposite "info.bankopposite",
+    b.bankpositive "info.bankpositive",b.positiveid "info.positiveid",b.oppositeid "info.oppositeid",
+    b.phonemt "info.phonemt",b.emailmt "info.emailmt",b.realname "info.realname"
+    FROM frico_crm_account a
+    LEFT JOIN frico_crm_account_info b ON b.id =a.account_info_id
+    WHERE account_no =#{account}
+  </select>
+
+  <select id="getBySuperiorAgent" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    FROM frico_crm_account
+    WHERE superior_agent =#{agentNo} and type =#{type}
+    <if test="condition != null and condition != ''">
+      <bind name="pattern" value="'%' + condition + '%'"/>
+      and CONCAT(account_no,nickname,status) like #{pattern}
+    </if>
+    <choose>
+      <when test="sort !=null and sort !=''">
+        order by #{sort}
+      </when>
+      <otherwise>
+        order by create_time desc
+      </otherwise>
+    </choose>
+
+  </select>
+</mapper>

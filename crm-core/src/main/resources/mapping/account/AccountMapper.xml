@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frico.crmcore.mapper.AccountMapperExt">
+  <resultMap id="BaseResultMap" type="com.frico.crmcore.model.Account">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="account_no" jdbcType="VARCHAR" property="accountNo" />
+    <result column="balance" jdbcType="DECIMAL" property="balance" />
+    <result column="credits" jdbcType="DECIMAL" property="credits" />
+    <result column="account_info_id" jdbcType="INTEGER" property="accountInfoId" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="agent_type" jdbcType="CHAR" property="agentType" />
+    <result column="organization_name" jdbcType="VARCHAR" property="organizationName" />
+    <result column="organization_no" jdbcType="VARCHAR" property="organizationNo" />
+    <result column="organization_img" jdbcType="VARCHAR" property="organizationImg" />
+    <result column="superior_agent" jdbcType="INTEGER" property="superiorAgent" />
+    <result column="agent_name" jdbcType="VARCHAR" property="agentName" />
+    <result column="junior_agent_num" jdbcType="INTEGER" property="juniorAgentNum" />
+    <result column="direct_members" jdbcType="INTEGER" property="directMembers" />
+    <result column="check_id" jdbcType="INTEGER" property="checkId" />
+    <result column="create_id" jdbcType="INTEGER" property="createId" />
+    <result column="creater_type" jdbcType="CHAR" property="createrType" />
+    <result column="mt_group" jdbcType="INTEGER" property="mtGroup" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="deal_pwd" jdbcType="VARCHAR" property="dealPwd" />
+    <result column="only_read_pwd" jdbcType="VARCHAR" property="onlyReadPwd" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="weixin" jdbcType="VARCHAR" property="weixin" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="leverage" jdbcType="VARCHAR" property="leverage" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="proxy_date" jdbcType="TIMESTAMP" property="proxyDate" />
+    <result column="proxy_end_date" jdbcType="TIMESTAMP" property="proxyEndDate" />
+    <association property="accountInfo" javaType="com.frico.crmcore.model.AccountInfo">
+      <id property="id" column="info.id"/>
+      <result property="idnumbermt" column="info.idnumbermt"/>
+      <result property="banknumbermt" column="info.banknumbermt"/>
+      <result property="banknamemt" column="info.banknamemt"/>
+      <result property="bankbranchmt" column="info.bankbranchmt"/>
+      <result property="bankopposite" column="info.bankopposite"/>
+      <result property="bankpositive" column="info.bankpositive"/>
+      <result property="positiveid" column="info.positiveid"/>
+      <result property="oppositeid" column="info.oppositeid"/>
+      <result property="phonemt" column="info.phonemt"/>
+      <result property="emailmt" column="info.emailmt"/>
+      <result property="realname" column="info.realname"/>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, account_no, balance, credits, account_info_id, status, password, agent_type, 
+    organization_name, organization_no, organization_img, superior_agent, agent_name, 
+    junior_agent_num, direct_members, check_id, create_id, creater_type, mt_group, salt, 
+    deal_pwd, only_read_pwd, create_time, update_time, nickname, weixin, qq, leverage, 
+    birthday, proxy_date, proxy_end_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from frico_crm_account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from frico_crm_account
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.frico.crmcore.model.Account">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into frico_crm_account (type, account_no, balance, 
+      credits, account_info_id, status, 
+      password, agent_type, organization_name, 
+      organization_no, organization_img, superior_agent, 
+      agent_name, junior_agent_num, direct_members, 
+      check_id, create_id, creater_type, 
+      mt_group, salt, deal_pwd, 
+      only_read_pwd, create_time, update_time, 
+      nickname, weixin, qq, 
+      leverage, birthday, proxy_date, 
+      proxy_end_date)
+    values (#{type,jdbcType=CHAR}, #{accountNo,jdbcType=VARCHAR}, #{balance,jdbcType=DECIMAL}, 
+      #{credits,jdbcType=DECIMAL}, #{accountInfoId,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, 
+      #{password,jdbcType=VARCHAR}, #{agentType,jdbcType=CHAR}, #{organizationName,jdbcType=VARCHAR}, 
+      #{organizationNo,jdbcType=VARCHAR}, #{organizationImg,jdbcType=VARCHAR}, #{superiorAgent,jdbcType=INTEGER}, 
+      #{agentName,jdbcType=VARCHAR}, #{juniorAgentNum,jdbcType=INTEGER}, #{directMembers,jdbcType=INTEGER}, 
+      #{checkId,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, #{createrType,jdbcType=CHAR}, 
+      #{mtGroup,jdbcType=INTEGER}, #{salt,jdbcType=VARCHAR}, #{dealPwd,jdbcType=VARCHAR}, 
+      #{onlyReadPwd,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{nickname,jdbcType=VARCHAR}, #{weixin,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
+      #{leverage,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{proxyDate,jdbcType=TIMESTAMP}, 
+      #{proxyEndDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.frico.crmcore.model.Account">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into frico_crm_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        type,
+      </if>
+      <if test="accountNo != null">
+        account_no,
+      </if>
+      <if test="balance != null">
+        balance,
+      </if>
+      <if test="credits != null">
+        credits,
+      </if>
+      <if test="accountInfoId != null">
+        account_info_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="agentType != null">
+        agent_type,
+      </if>
+      <if test="organizationName != null">
+        organization_name,
+      </if>
+      <if test="organizationNo != null">
+        organization_no,
+      </if>
+      <if test="organizationImg != null">
+        organization_img,
+      </if>
+      <if test="superiorAgent != null">
+        superior_agent,
+      </if>
+      <if test="agentName != null">
+        agent_name,
+      </if>
+      <if test="juniorAgentNum != null">
+        junior_agent_num,
+      </if>
+      <if test="directMembers != null">
+        direct_members,
+      </if>
+      <if test="checkId != null">
+        check_id,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createrType != null">
+        creater_type,
+      </if>
+      <if test="mtGroup != null">
+        mt_group,
+      </if>
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="dealPwd != null">
+        deal_pwd,
+      </if>
+      <if test="onlyReadPwd != null">
+        only_read_pwd,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="weixin != null">
+        weixin,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="leverage != null">
+        leverage,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="proxyDate != null">
+        proxy_date,
+      </if>
+      <if test="proxyEndDate != null">
+        proxy_end_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="accountNo != null">
+        #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="credits != null">
+        #{credits,jdbcType=DECIMAL},
+      </if>
+      <if test="accountInfoId != null">
+        #{accountInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="agentType != null">
+        #{agentType,jdbcType=CHAR},
+      </if>
+      <if test="organizationName != null">
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationNo != null">
+        #{organizationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationImg != null">
+        #{organizationImg,jdbcType=VARCHAR},
+      </if>
+      <if test="superiorAgent != null">
+        #{superiorAgent,jdbcType=INTEGER},
+      </if>
+      <if test="agentName != null">
+        #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="juniorAgentNum != null">
+        #{juniorAgentNum,jdbcType=INTEGER},
+      </if>
+      <if test="directMembers != null">
+        #{directMembers,jdbcType=INTEGER},
+      </if>
+      <if test="checkId != null">
+        #{checkId,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createrType != null">
+        #{createrType,jdbcType=CHAR},
+      </if>
+      <if test="mtGroup != null">
+        #{mtGroup,jdbcType=INTEGER},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="dealPwd != null">
+        #{dealPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="onlyReadPwd != null">
+        #{onlyReadPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null">
+        #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="leverage != null">
+        #{leverage,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="proxyDate != null">
+        #{proxyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proxyEndDate != null">
+        #{proxyEndDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.frico.crmcore.model.Account">
+    update frico_crm_account
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="accountNo != null">
+        account_no = #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="credits != null">
+        credits = #{credits,jdbcType=DECIMAL},
+      </if>
+      <if test="accountInfoId != null">
+        account_info_id = #{accountInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="agentType != null">
+        agent_type = #{agentType,jdbcType=CHAR},
+      </if>
+      <if test="organizationName != null">
+        organization_name = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationNo != null">
+        organization_no = #{organizationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationImg != null">
+        organization_img = #{organizationImg,jdbcType=VARCHAR},
+      </if>
+      <if test="superiorAgent != null">
+        superior_agent = #{superiorAgent,jdbcType=INTEGER},
+      </if>
+      <if test="agentName != null">
+        agent_name = #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="juniorAgentNum != null">
+        junior_agent_num = #{juniorAgentNum,jdbcType=INTEGER},
+      </if>
+      <if test="directMembers != null">
+        direct_members = #{directMembers,jdbcType=INTEGER},
+      </if>
+      <if test="checkId != null">
+        check_id = #{checkId,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createrType != null">
+        creater_type = #{createrType,jdbcType=CHAR},
+      </if>
+      <if test="mtGroup != null">
+        mt_group = #{mtGroup,jdbcType=INTEGER},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="dealPwd != null">
+        deal_pwd = #{dealPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="onlyReadPwd != null">
+        only_read_pwd = #{onlyReadPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null">
+        weixin = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="leverage != null">
+        leverage = #{leverage,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="proxyDate != null">
+        proxy_date = #{proxyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proxyEndDate != null">
+        proxy_end_date = #{proxyEndDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.frico.crmcore.model.Account">
+    update frico_crm_account
+    set type = #{type,jdbcType=CHAR},
+      account_no = #{accountNo,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=DECIMAL},
+      credits = #{credits,jdbcType=DECIMAL},
+      account_info_id = #{accountInfoId,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR},
+      password = #{password,jdbcType=VARCHAR},
+      agent_type = #{agentType,jdbcType=CHAR},
+      organization_name = #{organizationName,jdbcType=VARCHAR},
+      organization_no = #{organizationNo,jdbcType=VARCHAR},
+      organization_img = #{organizationImg,jdbcType=VARCHAR},
+      superior_agent = #{superiorAgent,jdbcType=INTEGER},
+      agent_name = #{agentName,jdbcType=VARCHAR},
+      junior_agent_num = #{juniorAgentNum,jdbcType=INTEGER},
+      direct_members = #{directMembers,jdbcType=INTEGER},
+      check_id = #{checkId,jdbcType=INTEGER},
+      create_id = #{createId,jdbcType=INTEGER},
+      creater_type = #{createrType,jdbcType=CHAR},
+      mt_group = #{mtGroup,jdbcType=INTEGER},
+      salt = #{salt,jdbcType=VARCHAR},
+      deal_pwd = #{dealPwd,jdbcType=VARCHAR},
+      only_read_pwd = #{onlyReadPwd,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      weixin = #{weixin,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      leverage = #{leverage,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      proxy_date = #{proxyDate,jdbcType=TIMESTAMP},
+      proxy_end_date = #{proxyEndDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

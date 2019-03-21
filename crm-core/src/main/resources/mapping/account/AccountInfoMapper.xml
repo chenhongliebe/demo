@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.frico.crmcore.mapper.AccountInfoMapperExt">
+  <resultMap id="BaseResultMap" type="com.frico.crmcore.model.AccountInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="bankBranchMT" jdbcType="VARCHAR" property="bankbranchmt" />
+    <result column="bankOpposite" jdbcType="VARCHAR" property="bankopposite" />
+    <result column="bankNameMT" jdbcType="VARCHAR" property="banknamemt" />
+    <result column="bankNumberMT" jdbcType="VARCHAR" property="banknumbermt" />
+    <result column="cityMT" jdbcType="VARCHAR" property="citymt" />
+    <result column="emailMT" jdbcType="VARCHAR" property="emailmt" />
+    <result column="idnumberMT" jdbcType="VARCHAR" property="idnumbermt" />
+    <result column="mtProxy" jdbcType="INTEGER" property="mtproxy" />
+    <result column="nationMT" jdbcType="VARCHAR" property="nationmt" />
+    <result column="noLogin" jdbcType="INTEGER" property="nologin" />
+    <result column="noTraing" jdbcType="INTEGER" property="notraing" />
+    <result column="oppositeid" jdbcType="VARCHAR" property="oppositeid" />
+    <result column="passwordMT" jdbcType="VARCHAR" property="passwordmt" />
+    <result column="phoneMT" jdbcType="VARCHAR" property="phonemt" />
+    <result column="positiveid" jdbcType="VARCHAR" property="positiveid" />
+    <result column="provinceMT" jdbcType="VARCHAR" property="provincemt" />
+    <result column="reviceMail" jdbcType="INTEGER" property="revicemail" />
+    <result column="sexMT" jdbcType="INTEGER" property="sexmt" />
+    <result column="stateMT" jdbcType="INTEGER" property="statemt" />
+    <result column="streetMT" jdbcType="VARCHAR" property="streetmt" />
+    <result column="realName" jdbcType="VARCHAR" property="realname" />
+    <result column="userNameMT" jdbcType="VARCHAR" property="usernamemt" />
+    <result column="bankPositive" jdbcType="VARCHAR" property="bankpositive" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="proxy_id" jdbcType="INTEGER" property="proxyId" />
+    <collection property="accounts" javaType="java.util.ArrayList" ofType="com.frico.crmcore.model.Account">
+      <id property="id" column="account.id"/>
+      <result property="balance" column="account.balance"/>
+      <result property="credits" column="account.credits"/>
+      <result property="nickname" column="account.nickname"/>
+      <result property="accountNo" column="account.accountNo"/>
+      <result property="createTime" column="account.createTime"/>
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, bankBranchMT, bankOpposite, bankNameMT, bankNumberMT, cityMT, emailMT, idnumberMT, 
+    mtProxy, nationMT, noLogin, noTraing, oppositeid, passwordMT, phoneMT, positiveid, 
+    provinceMT, reviceMail, sexMT, stateMT, streetMT, realName, userNameMT, bankPositive, 
+    createTime, proxy_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from frico_crm_account_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from frico_crm_account_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.frico.crmcore.model.AccountInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into frico_crm_account_info (bankBranchMT, bankOpposite, bankNameMT, 
+      bankNumberMT, cityMT, emailMT, 
+      idnumberMT, mtProxy, nationMT, 
+      noLogin, noTraing, oppositeid, 
+      passwordMT, phoneMT, positiveid, 
+      provinceMT, reviceMail, sexMT, 
+      stateMT, streetMT, realName, 
+      userNameMT, bankPositive, createTime, 
+      proxy_id)
+    values (#{bankbranchmt,jdbcType=VARCHAR}, #{bankopposite,jdbcType=VARCHAR}, #{banknamemt,jdbcType=VARCHAR}, 
+      #{banknumbermt,jdbcType=VARCHAR}, #{citymt,jdbcType=VARCHAR}, #{emailmt,jdbcType=VARCHAR}, 
+      #{idnumbermt,jdbcType=VARCHAR}, #{mtproxy,jdbcType=INTEGER}, #{nationmt,jdbcType=VARCHAR}, 
+      #{nologin,jdbcType=INTEGER}, #{notraing,jdbcType=INTEGER}, #{oppositeid,jdbcType=VARCHAR}, 
+      #{passwordmt,jdbcType=VARCHAR}, #{phonemt,jdbcType=VARCHAR}, #{positiveid,jdbcType=VARCHAR}, 
+      #{provincemt,jdbcType=VARCHAR}, #{revicemail,jdbcType=INTEGER}, #{sexmt,jdbcType=INTEGER}, 
+      #{statemt,jdbcType=INTEGER}, #{streetmt,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+      #{usernamemt,jdbcType=VARCHAR}, #{bankpositive,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{proxyId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.frico.crmcore.model.AccountInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into frico_crm_account_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bankbranchmt != null">
+        bankBranchMT,
+      </if>
+      <if test="bankopposite != null">
+        bankOpposite,
+      </if>
+      <if test="banknamemt != null">
+        bankNameMT,
+      </if>
+      <if test="banknumbermt != null">
+        bankNumberMT,
+      </if>
+      <if test="citymt != null">
+        cityMT,
+      </if>
+      <if test="emailmt != null">
+        emailMT,
+      </if>
+      <if test="idnumbermt != null">
+        idnumberMT,
+      </if>
+      <if test="mtproxy != null">
+        mtProxy,
+      </if>
+      <if test="nationmt != null">
+        nationMT,
+      </if>
+      <if test="nologin != null">
+        noLogin,
+      </if>
+      <if test="notraing != null">
+        noTraing,
+      </if>
+      <if test="oppositeid != null">
+        oppositeid,
+      </if>
+      <if test="passwordmt != null">
+        passwordMT,
+      </if>
+      <if test="phonemt != null">
+        phoneMT,
+      </if>
+      <if test="positiveid != null">
+        positiveid,
+      </if>
+      <if test="provincemt != null">
+        provinceMT,
+      </if>
+      <if test="revicemail != null">
+        reviceMail,
+      </if>
+      <if test="sexmt != null">
+        sexMT,
+      </if>
+      <if test="statemt != null">
+        stateMT,
+      </if>
+      <if test="streetmt != null">
+        streetMT,
+      </if>
+      <if test="realname != null">
+        realName,
+      </if>
+      <if test="usernamemt != null">
+        userNameMT,
+      </if>
+      <if test="bankpositive != null">
+        bankPositive,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="proxyId != null">
+        proxy_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bankbranchmt != null">
+        #{bankbranchmt,jdbcType=VARCHAR},
+      </if>
+      <if test="bankopposite != null">
+        #{bankopposite,jdbcType=VARCHAR},
+      </if>
+      <if test="banknamemt != null">
+        #{banknamemt,jdbcType=VARCHAR},
+      </if>
+      <if test="banknumbermt != null">
+        #{banknumbermt,jdbcType=VARCHAR},
+      </if>
+      <if test="citymt != null">
+        #{citymt,jdbcType=VARCHAR},
+      </if>
+      <if test="emailmt != null">
+        #{emailmt,jdbcType=VARCHAR},
+      </if>
+      <if test="idnumbermt != null">
+        #{idnumbermt,jdbcType=VARCHAR},
+      </if>
+      <if test="mtproxy != null">
+        #{mtproxy,jdbcType=INTEGER},
+      </if>
+      <if test="nationmt != null">
+        #{nationmt,jdbcType=VARCHAR},
+      </if>
+      <if test="nologin != null">
+        #{nologin,jdbcType=INTEGER},
+      </if>
+      <if test="notraing != null">
+        #{notraing,jdbcType=INTEGER},
+      </if>
+      <if test="oppositeid != null">
+        #{oppositeid,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordmt != null">
+        #{passwordmt,jdbcType=VARCHAR},
+      </if>
+      <if test="phonemt != null">
+        #{phonemt,jdbcType=VARCHAR},
+      </if>
+      <if test="positiveid != null">
+        #{positiveid,jdbcType=VARCHAR},
+      </if>
+      <if test="provincemt != null">
+        #{provincemt,jdbcType=VARCHAR},
+      </if>
+      <if test="revicemail != null">
+        #{revicemail,jdbcType=INTEGER},
+      </if>
+      <if test="sexmt != null">
+        #{sexmt,jdbcType=INTEGER},
+      </if>
+      <if test="statemt != null">
+        #{statemt,jdbcType=INTEGER},
+      </if>
+      <if test="streetmt != null">
+        #{streetmt,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="usernamemt != null">
+        #{usernamemt,jdbcType=VARCHAR},
+      </if>
+      <if test="bankpositive != null">
+        #{bankpositive,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proxyId != null">
+        #{proxyId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.frico.crmcore.model.AccountInfo">
+    update frico_crm_account_info
+    <set>
+      <if test="bankbranchmt != null">
+        bankBranchMT = #{bankbranchmt,jdbcType=VARCHAR},
+      </if>
+      <if test="bankopposite != null">
+        bankOpposite = #{bankopposite,jdbcType=VARCHAR},
+      </if>
+      <if test="banknamemt != null">
+        bankNameMT = #{banknamemt,jdbcType=VARCHAR},
+      </if>
+      <if test="banknumbermt != null">
+        bankNumberMT = #{banknumbermt,jdbcType=VARCHAR},
+      </if>
+      <if test="citymt != null">
+        cityMT = #{citymt,jdbcType=VARCHAR},
+      </if>
+      <if test="emailmt != null">
+        emailMT = #{emailmt,jdbcType=VARCHAR},
+      </if>
+      <if test="idnumbermt != null">
+        idnumberMT = #{idnumbermt,jdbcType=VARCHAR},
+      </if>
+      <if test="mtproxy != null">
+        mtProxy = #{mtproxy,jdbcType=INTEGER},
+      </if>
+      <if test="nationmt != null">
+        nationMT = #{nationmt,jdbcType=VARCHAR},
+      </if>
+      <if test="nologin != null">
+        noLogin = #{nologin,jdbcType=INTEGER},
+      </if>
+      <if test="notraing != null">
+        noTraing = #{notraing,jdbcType=INTEGER},
+      </if>
+      <if test="oppositeid != null">
+        oppositeid = #{oppositeid,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordmt != null">
+        passwordMT = #{passwordmt,jdbcType=VARCHAR},
+      </if>
+      <if test="phonemt != null">
+        phoneMT = #{phonemt,jdbcType=VARCHAR},
+      </if>
+      <if test="positiveid != null">
+        positiveid = #{positiveid,jdbcType=VARCHAR},
+      </if>
+      <if test="provincemt != null">
+        provinceMT = #{provincemt,jdbcType=VARCHAR},
+      </if>
+      <if test="revicemail != null">
+        reviceMail = #{revicemail,jdbcType=INTEGER},
+      </if>
+      <if test="sexmt != null">
+        sexMT = #{sexmt,jdbcType=INTEGER},
+      </if>
+      <if test="statemt != null">
+        stateMT = #{statemt,jdbcType=INTEGER},
+      </if>
+      <if test="streetmt != null">
+        streetMT = #{streetmt,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        realName = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="usernamemt != null">
+        userNameMT = #{usernamemt,jdbcType=VARCHAR},
+      </if>
+      <if test="bankpositive != null">
+        bankPositive = #{bankpositive,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proxyId != null">
+        proxy_id = #{proxyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.frico.crmcore.model.AccountInfo">
+    update frico_crm_account_info
+    set bankBranchMT = #{bankbranchmt,jdbcType=VARCHAR},
+      bankOpposite = #{bankopposite,jdbcType=VARCHAR},
+      bankNameMT = #{banknamemt,jdbcType=VARCHAR},
+      bankNumberMT = #{banknumbermt,jdbcType=VARCHAR},
+      cityMT = #{citymt,jdbcType=VARCHAR},
+      emailMT = #{emailmt,jdbcType=VARCHAR},
+      idnumberMT = #{idnumbermt,jdbcType=VARCHAR},
+      mtProxy = #{mtproxy,jdbcType=INTEGER},
+      nationMT = #{nationmt,jdbcType=VARCHAR},
+      noLogin = #{nologin,jdbcType=INTEGER},
+      noTraing = #{notraing,jdbcType=INTEGER},
+      oppositeid = #{oppositeid,jdbcType=VARCHAR},
+      passwordMT = #{passwordmt,jdbcType=VARCHAR},
+      phoneMT = #{phonemt,jdbcType=VARCHAR},
+      positiveid = #{positiveid,jdbcType=VARCHAR},
+      provinceMT = #{provincemt,jdbcType=VARCHAR},
+      reviceMail = #{revicemail,jdbcType=INTEGER},
+      sexMT = #{sexmt,jdbcType=INTEGER},
+      stateMT = #{statemt,jdbcType=INTEGER},
+      streetMT = #{streetmt,jdbcType=VARCHAR},
+      realName = #{realname,jdbcType=VARCHAR},
+      userNameMT = #{usernamemt,jdbcType=VARCHAR},
+      bankPositive = #{bankpositive,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      proxy_id = #{proxyId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
