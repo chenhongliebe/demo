@@ -14,7 +14,10 @@ public enum SocketEnum {
     MSGTYPE_1007("1007","手机号"),
     MSGTYPE_1008("1008","邮箱"),
     MSGTYPE_1009("1009","交易密码"),
-    MSGTYPE_1010("1010","只读密码");
+    MSGTYPE_1010("1010","只读密码"),
+    MSGTYPE_1011("1011","交易历史"),
+    MSGTYPE_1012("1012","持仓订单"),
+    MSGTYPE_1013("1013","挂单订单");
 
     private String code;
     private String msg;

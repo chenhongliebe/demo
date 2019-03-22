@@ -124,6 +124,38 @@ public class MT4ConnectSocketFactory {
         return js.getString("code");
     }
 
+    /**
+     * 持仓订单 12
+     */
+    public static String holdOrder(String account,String email) throws Exception{
+        String code =SocketEnum.MSGTYPE_1012.getCode();//持仓订单
+        JSONObject json = new JSONObject();
+        json.put("msg_type",code);
+        json.put("account",account);
+        json.put("order_type","2");//2持仓订单
+        NIOClient nioClient = new NIOClient();
+        String msg = nioClient.accessServer(json.toString());
+//        JSONObject js = JSONObject.parseObject(msg);
+//        return js.getString("code");
+        return msg;
+    }
+
+    /**
+     * 挂单订单 13
+     */
+    public static String putOrder(String account) throws Exception{
+        String code =SocketEnum.MSGTYPE_1013.getCode();//挂单订单
+        JSONObject json = new JSONObject();
+        json.put("msg_type",code);
+        json.put("account",account);
+        json.put("order_type","3");//3挂单订单
+        NIOClient nioClient = new NIOClient();
+        String msg = nioClient.accessServer(json.toString());//结果格式
+//        JSONObject js = JSONObject.parseObject(msg);
+//        return js.getString("code");
+        return msg;
+    }
+
 
 
 }
